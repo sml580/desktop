@@ -366,9 +366,7 @@ export type Popup =
       currentBranch: Branch
       defaultBranch: Branch | null
       externalEditorLabel?: string
-      hideWhitespaceInHistoryDiff: boolean
       imageDiffType: ImageDiffType
       recentBranches: ReadonlyArray<Branch>
       repository: Repository
-      showSideBySideDiff: boolean
     }
