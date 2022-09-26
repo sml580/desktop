@@ -3968,4 +3968,8 @@ export class Dispatcher {
       type: PopupType.StartPullRequest,
     })
   }
+
+  public updatePullRequestBaseBranch(repository: Repository, branch: Branch) {
+    this.appStore._updatePullRequestBaseBranch(repository, branch)
+  }
 }

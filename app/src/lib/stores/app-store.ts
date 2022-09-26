@@ -7263,6 +7263,8 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
     this.emitUpdate()
   }
+
+  public _updatePullRequestBaseBranch(repository: Repository, branch: Branch) {}
 }
 
 /**

@@ -47,6 +47,11 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
     this.props.dispatcher.recordCreatePullRequest()
   }
 
+  private onBranchChange = (branch: Branch) => {
+    const { repository } = this.props
+    this.props.dispatcher.updatePullRequestBaseBranch(repository, branch)
+  }
+
   private renderHeader() {
     const {
       currentBranch,
@@ -64,6 +69,7 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
         allBranches={allBranches}
         recentBranches={recentBranches}
         commitCount={commitSHAs?.length ?? 0}
+        onBranchChange={this.onBranchChange}
         onDismissed={this.props.onDismissed}
       />
     )
