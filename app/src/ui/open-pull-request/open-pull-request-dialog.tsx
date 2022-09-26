@@ -77,8 +77,9 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText="Create Pull Request"
-          okButtonTitle="Create pull request on GitHub."
+          okButtonText={
+            __DARWIN__ ? 'Create Pull Request' : 'Create pull request'
+          }
           cancelButtonText="Cancel"
         />
       </DialogFooter>
