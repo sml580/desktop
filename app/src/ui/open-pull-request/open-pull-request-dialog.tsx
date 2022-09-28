@@ -81,7 +81,12 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
   }
 
   private renderContent() {
-    return <div className="content">{this.renderFilesChanged()}</div>
+    return (
+      <div className="content">
+        {this.renderNoChanges()}
+        {this.renderFilesChanged()}
+      </div>
+    )
   }
 
   private renderFilesChanged() {
@@ -93,7 +98,11 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
       repository,
     } = this.props
     const { commitSelection } = pullRequestState
-    const { diff, file } = commitSelection
+    const { diff, file, shas } = commitSelection
+
+    if (shas.length === 0) {
+      return
+    }
 
     return (
       <PullRequestFilesChanged
@@ -106,6 +115,16 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
         repository={repository}
       />
     )
+  }
+
+  private renderNoChanges() {
+    const { shas } = this.props.pullRequestState.commitSelection
+
+    if (shas.length !== 0) {
+      return
+    }
+
+    return <div className="open-pull-request-no-changes"> No changes!</div>
   }
 
   private renderFooter() {

@@ -90,7 +90,6 @@ export class PullRequestFilesChanged extends React.Component<
   }
 
   public render() {
-    // TODO: handle empty change set
     return <div className="pull-request-diff-viewer">{this.renderDiff()}</div>
   }
 }
