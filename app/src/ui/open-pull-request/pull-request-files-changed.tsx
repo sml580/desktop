@@ -53,13 +53,23 @@ interface IPullRequestFilesChangedProps {
   readonly fileListWidth: IConstrainedValue
 }
 
+interface IPullRequestFilesChangedState {
+  readonly showSideBySideDiff: boolean
+}
+
 /**
  * A component for viewing the file changes for a pull request.
  */
 export class PullRequestFilesChanged extends React.Component<
   IPullRequestFilesChangedProps,
-  {}
+  IPullRequestFilesChangedState
 > {
+  public constructor(props: IPullRequestFilesChangedProps) {
+    super(props)
+
+    this.state = { showSideBySideDiff: props.showSideBySideDiff }
+  }
+
   private onOpenFile = (path: string) => {
     const fullPath = Path.join(this.props.repository.path, path)
     this.onOpenBinaryFile(fullPath)
@@ -84,7 +94,7 @@ export class PullRequestFilesChanged extends React.Component<
   }
 
   private onShowSideBySideDiffChanged = (showSideBySideDiff: boolean) => {
-    this.props.dispatcher.onShowSideBySideDiffChanged(showSideBySideDiff)
+    this.setState({ showSideBySideDiff })
   }
 
   private onDiffOptionsOpened = () => {
@@ -177,7 +187,8 @@ export class PullRequestFilesChanged extends React.Component<
   }
 
   private renderHeader() {
-    const { hideWhitespaceInDiff, showSideBySideDiff } = this.props
+    const { hideWhitespaceInDiff } = this.props
+    const { showSideBySideDiff } = this.state
     return (
       <div className="files-changed-header">
         <div className="commits-displayed">
@@ -224,13 +235,9 @@ export class PullRequestFilesChanged extends React.Component<
       return
     }
 
-    const {
-      diff,
-      repository,
-      imageDiffType,
-      hideWhitespaceInDiff,
-      showSideBySideDiff,
-    } = this.props
+    const { diff, repository, imageDiffType, hideWhitespaceInDiff } = this.props
+
+    const { showSideBySideDiff } = this.state
 
     return (
       <SeamlessDiffSwitcher
